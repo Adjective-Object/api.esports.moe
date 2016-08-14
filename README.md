@@ -22,3 +22,9 @@ the error log of apache more readable (`ppl`).
 ```
 Neither of these are strictly necessary but it will make getting
 started with development much faster.
+
+## meta
+### branching strategy
+- create a new branch for each feature
+- submit pull requests to `develop`
+- periodically merge `develop` into `master` on release
