@@ -1,0 +1,4 @@
+vendor
+composer.lock
+apache2.dev.conf
+*.sqlite
