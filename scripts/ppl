@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+BLUE=`echo -e '\033[34m'`
+BOLD=`echo -e '\033[1m'`
+BG_BLUE=`echo -e '\033[46m'`
+BG_YELLOW=`echo -e '\033[43m'`
+BG_RED=`echo -e '\033[41m'`
+GRAY=`echo -e '\033[1;37m'`
+DARK_GRAY=`echo -e '\033[1;35m'`
+NORMAL=`echo -e '\033[0m'`
+
+while read x; do
+    echo -n $x \
+        | sed --unbuffered -r "s| Notice: |$BOLD$BG_BLUE$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r 's|.*PHP||g' \
+        | sed --unbuffered 's|\/www\/sites\/qa2.fantasy.nfl.com\/files\/source\/nfl\/trunk||g' \
+        | sed --unbuffered -r "s|$|\n|g" \
+        | sed --unbuffered -r "s~/([^\\.]*\\.(php|phtml))(:([0123456789]+))?~\n  $GRAY\\1$DARK_GRAY\\3$NORMAL~g" \
+        | sed --unbuffered -r "s|[0123456789]+\\.[^\\.]*\(\)|$BLUE&$NORMAL\n    |g" \
+        | sed --unbuffered -r "s| Notice: |$BOLD$BG_BLUE$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r "s| Fatal error:[^:]*: |$BOLD$BG_RED$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r "s| Error: |$BOLD$BG_RED$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r "s| Parse error: |$BOLD$BG_RED$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r "s| Warning:|$BOLD$BG_YELLOW$GRAY&$NORMAL|g" \
+        | sed --unbuffered -r "s|^.*(AH[0123456789]*)|$BLUE$BOLD\1$NORMAL|g" \
+        | sed --unbuffered -r "s|$(pwd)||g" \
+        | sed --unbuffered -r "s|\n\n|\n|g"
+done
+
