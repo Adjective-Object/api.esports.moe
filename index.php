@@ -92,11 +92,6 @@ $app->get('/waifus/{id}', function(Request $request, $id) use($app) {
 
 $app->post('/fights', function(Request $request) use($app) {
 
-    // sanitize parameters
-    $requestLimit = $request->query->get('limit') ?: 50;
-    $limit= min(50, intval($requestLimit));
-    $start_id = intval($request->query->get('start_id'));
-
     // generate a secret key to resolve this fight
     // TODO hash with the requesting user's user ID to
     // ensure the user making the request is cool

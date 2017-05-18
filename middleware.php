@@ -26,7 +26,7 @@ function bind_middleware($app) {
 
     //jsonify the request
     $app->before(function($request, $app) {
-        if ($request->getMethod() !== 'GET') {
+        if ($request->getMethod() === 'PUT') {
             if (0 !== strpos($request->headers->get('Content-Type'), 'application/json')) {
                 return err($app, [400, APP_REQUIRES_JSON]);
             }
